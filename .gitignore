@@ -60,4 +60,4 @@ target/
 venv/
 
 # Development database
-src/db.sqlite3
+db.sqlite3
