@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+  <script src="/static/core/js/test.js" defer></script>
+{% endblock %}
+
+
+{% block content %}
+  <h1 class="text-center header">
+    <p>{{ test.owner.username }}/{{ test.name }}</p>
+    <div class="small">{{ test.description }}</div>
+  </h1>
+
+  <div class="col-md-6 test-column">
+    <div id="questionText" class="test-question">
+      <span class="text-muted">Press <i>Next</i></span>
+    </div>
+
+    <button type="button" class="btn btn-default" onclick="selectRandom()">Next</button>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Questions</strong></div>
+
+      <div class="panel-body">
+        <ol id="questions">
+          {% for question in test.question_set.all %}
+            <li>{{ question.name }}</li>
+          {% endfor %}
+        </ol>
+      </div>
+    </div>
+  </div>
+{% endblock %}

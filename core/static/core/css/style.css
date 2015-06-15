@@ -1,0 +1,15 @@
+.header {
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+
+.test-column {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.test-question {
+    margin-bottom: 20px;
+    height: 100px;
+}
