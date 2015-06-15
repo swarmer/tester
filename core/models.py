@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib import auth
+from django.core import validators
 
 
 class Test(models.Model):
     owner = models.ForeignKey(auth.models.User)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, validators=[validators.validate_slug])
     description = models.CharField(max_length=200, blank=True)
     source = models.TextField()
     is_public = models.BooleanField(default=False)
