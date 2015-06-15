@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1 class="text-center">Public tests</h1>
+
+  <ul class="list-group">
+    {% for test in tests %}
+      <li class="list-group-item">
+        <a href="/test/{{ test.owner.username }}/{{ test.name }}/">
+          <strong>{{ test.owner.username }}/{{ test.name }}</strong>
+        </a>
+        <div>{{ test.description }}</div>
+        <div class="text-muted">{{ test.question_set.count }} questions</div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

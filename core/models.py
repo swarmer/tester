@@ -5,6 +5,7 @@ from django.contrib import auth
 class Test(models.Model):
     owner = models.ForeignKey(auth.models.User)
     name = models.CharField(max_length=30)
+    description = models.CharField(max_length=200, blank=True)
     source = models.TextField()
     is_public = models.BooleanField(default=False)
 
