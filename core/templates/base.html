@@ -40,7 +40,15 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login/">Sign In</a></li>
+            {% if user.is_authenticated %}
+              <li class="nav navbar-text navbar-username">{{ user.username }}</li>
+              {% if user.is_superuser %}
+                <li><a href="/admin/">Admin</a></li>
+              {% endif %}
+              <li><a href="/logout/">Log Out</a></li>
+            {% else %}
+              <li><a href="/login/">Sign In</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

@@ -1,17 +1,37 @@
-.header {
-    font-size: 27px;
-    margin-bottom: 20px;
+/* navigation bar */
+.navbar-inverse .navbar-brand {
+    font-weight: bold;
+    color: #cccccc;
+}
+
+.navbar-inverse .navbar-text.navbar-username {
+    margin-left: 15px;
+    font-weight: bold;
+    color: #cccccc;
 }
 
 
+/* page header */
+.header {
+    font-size: 27px;
+    margin-bottom: 40px;
+}
+
+
+/* test page */
 .test-column {
-    padding-top: 10px;
-    padding-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .test-question {
+    margin-top: 15px;
     margin-bottom: 20px;
     height: 100px;
+}
+
+.col-md-6.test-column {
+    padding-left: 0px;
+    padding-right: 30px;
 }
 
 
