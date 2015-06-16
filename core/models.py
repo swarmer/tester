@@ -19,13 +19,18 @@ class Test(models.Model):
         for question in self.question_set.all():
             question.delete()
 
-        for line in self.source.splitlines():
-            self.question_set.create(test=self, name=line)
+        for i, line in enumerate(self.source.splitlines()):
+            index = i + 1
+            self.question_set.create(test=self, name=line, index=index)
 
 
 class Question(models.Model):
     test = models.ForeignKey(Test)
     name = models.CharField(max_length=200)
+    index = models.IntegerField()
+
+    class Meta:
+        ordering = ['index']
 
     def __str__(self):
-        return '%s - %s' % (self.test, self.name)
+        return '%s - %d. %s' % (self.test, self.index, self.name)
