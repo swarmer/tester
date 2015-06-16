@@ -33,6 +33,8 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['tester.%s' % socket.gethostname()]
 
+INTERNAL_IPS = ('127.0.0.1',)
+
 
 # Application definition
 
