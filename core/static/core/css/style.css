@@ -1,4 +1,9 @@
 /* navigation bar */
+
+.navbar.navbar-inverse {
+    border-radius: 0px;
+}
+
 .navbar-inverse .navbar-brand {
     font-weight: bold;
     color: #cccccc;
