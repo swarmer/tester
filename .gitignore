@@ -61,3 +61,6 @@ venv/
 
 # Development database
 db.sqlite3
+
+# Source zipball
+tester.zip

@@ -10,22 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import socket
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
+# Main config variables
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g$6f(p88a)=%yn85@g(^njryt(pmjpdqmqt3hrmb30v1n55+hc'
+DEBUG = os.environ.get('DEBUG', '1') == '1'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if DEBUG:
+    SECRET_KEY = 'g$6f(p88a)=%yn85@g(^njryt(pmjpdqmqt3hrmb30v1n55+hc'
+else:
+    with open(os.path.join(BASE_DIR, '..', 'key')) as key_file:
+        SECRET_KEY = key_file.read()
 
-ALLOWED_HOSTS = []
+TEMPLATE_DEBUG = DEBUG
+
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['tester.%s' % socket.gethostname()]
 
 
 # Application definition
@@ -75,11 +81,21 @@ WSGI_APPLICATION = 'tester.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+if DEBUG:
+    db = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+else:
+    db = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '',
+        'NAME': 'tester',
+        'USER': 'tester',
+    }
+
+DATABASES = {
+    'default': db
 }
 
 
@@ -101,6 +117,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+if not DEBUG:
+    STATIC_ROOT = os.environ['STATIC_ROOT']
+
+
+# Media files
+
+MEDIA_URL = '/media/'
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_ROOT = os.environ['MEDIA_ROOT']
 
 
 # Authentication settings
