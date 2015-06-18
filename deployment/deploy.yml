@@ -121,9 +121,11 @@
       file: path=/home/{{ app_name }}/run.sh mode=0775
 
     - name: Create static directory
+      remote_user: "{{ app_name }}"
       file: path=/home/{{ app_name }}/static state=directory
 
     - name: Create media directory
+      remote_user: "{{ app_name }}"
       file: path=/home/{{ app_name }}/media state=directory
 
     - name: Collect static files to be served by nginx
