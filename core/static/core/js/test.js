@@ -94,13 +94,6 @@ function nextQuestion() {
     $("#question-text").text(question);
 }
 
-function fillArray(n, value) {
-    var array = new Array(n);
-    for (var i = 0; i < n; ++i)
-        array[i] = value;
-    return array;
-}
-
 function setActive(index, isActive) {
     questionsActive[index] = isActive;
 
@@ -130,10 +123,19 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
+function getQuestionStates() {
+    var questionStates = [];
+    $("#questions").children().each(function () {
+        questionStates.push($(this).children().first().hasClass("question-active"));
+    });
+
+    return questionStates;
+}
+
 
 $(document).ready(function () {
     questions = getQuestions();
-    questionsActive = fillArray(questions.length, true);
+    questionsActive = getQuestionStates();
     testName = $("#test-name").text();
     csrfToken = Cookies.get('csrftoken');
 

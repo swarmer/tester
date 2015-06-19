@@ -47,8 +47,14 @@
 
       <div class="panel-body">
         <ol id="questions">
-          {% for question in test.question_set.all %}
-            <li><a class="question-link" href="#">{{ question.name }}</a></li>
+          {% for question in questions %}
+            <li>
+              {% if question.is_active %}
+                <a class="question-link question-active" href="#">{{ question.name }}</a>
+              {% else %}
+                <a class="question-link text-success question-inactive" href="#">{{ question.name }}</a>
+              {% endif %}
+            </li>
           {% endfor %}
         </ol>
       </div>

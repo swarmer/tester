@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.db import transaction
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.core import exceptions
 
 from .models import Test, Question, UserQuestion
 
@@ -29,10 +30,33 @@ def explore(request):
 def test(request, username, test_name):
     owner = get_object_or_404(User, username=username)
     test = get_object_or_404(Test, owner=owner, name=test_name)
-    return render(request, 'test.html', {'test': test})
+
+    questions = list(test.question_set.all())
+    for question in questions:
+        question.is_active = True
+
+        if not request.user.is_authenticated():
+            continue
+
+        try:
+            user_question = UserQuestion.objects.get(
+                user=request.user,
+                question=question
+            )
+            question.is_active = user_question.is_active
+        except exceptions.ObjectDoesNotExist:
+            pass
+
+    return render(request, 'test.html', {
+        'test': test,
+        'questions': questions,
+    })
 
 @require_POST
 def save_active_questions(request):
+    if not request.user.is_authenticated():
+        return HttpResponse()
+
     states = [t == 'true' for t in request.POST.getlist('states[]')]
     tokens = request.POST.get('test').split('/')
     if len(tokens) != 2:
@@ -48,7 +72,7 @@ def save_active_questions(request):
     with transaction.atomic():
         for question, is_active in zip(questions.all(), states):
             user_question, _ = UserQuestion.objects.get_or_create(
-                user=owner,
+                user=request.user,
                 question=question
             )
             user_question.is_active = is_active
