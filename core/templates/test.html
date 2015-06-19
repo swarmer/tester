@@ -20,9 +20,20 @@
     <div class="clearfix form-inline">
       <input type="text" id="question-range" class="form-control"
         placeholder="Optional range (ex. 2-5)">
-      <button type="button" id="next-button" class="btn btn-default pull-right">
-        Next
-      </button>
+      <div class="pull-right">
+        <button type="button" id="done-button" class="btn btn-success" disabled>
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          Done
+        </button>
+        <button type="button" id="next-button" class="btn btn-default">
+          <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+          Next
+        </button>
+        <button type="button" id="reset-button" class="btn btn-danger">
+          <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+          Reset
+        </button>
+      </div>
     </div>
     <div id="range-error-box" class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>

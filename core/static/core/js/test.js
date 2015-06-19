@@ -3,6 +3,7 @@
 
 var questions = null;
 var questionsActive = null;
+var currentQuestionIndex = null;
 
 function randint(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -46,7 +47,7 @@ function getValidIndices(start, end) {
     return validIndices;
 }
 
-function nextClicked() {
+function nextQuestion() {
     var questions = getQuestions();
     var from, to;
     try {
@@ -79,10 +80,13 @@ function nextClicked() {
         $("#question-text").append(
             $("<span/>", {class: "text-success", text: "No more questions!"})
         );
+        $("#done-button").prop("disabled", true);
         return;
     }
+    $("#done-button").prop("disabled", false);
 
     var randomIndex = _.sample(validIndices);
+    currentQuestionIndex = randomIndex;
     var question = (randomIndex + 1) + ". " + questions[randomIndex];
 
     $("#question-text").text(question);
@@ -117,7 +121,17 @@ $(document).ready(function () {
     questions = getQuestions();
     questionsActive = fillArray(questions.length, true);
 
-    $("#next-button").click(nextClicked);
+    $("#done-button").click(function () {
+        setActive(currentQuestionIndex, false);
+        nextQuestion();
+    });
+
+    $("#next-button").click(nextQuestion);
+
+    $("#reset-button").click(function () {
+        for (var i = 0; i < questions.length; ++i)
+            setActive(i, true);
+    });
 
     $(".question-link").click(function(event) {
         event.preventDefault();
