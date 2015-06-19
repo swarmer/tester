@@ -39,6 +39,11 @@
     padding-right: 30px;
 }
 
+#range-error-box {
+    margin-top: 10px;
+    display: none;
+}
+
 
 .footer {
     margin-top: 50px;

@@ -13,11 +13,21 @@
   </h1>
 
   <div class="col-md-6 test-column">
-    <div id="questionText" class="test-question">
+    <div id="question-text" class="test-question">
       <span class="text-muted">Press <i>Next</i></span>
     </div>
 
-    <button type="button" class="btn btn-default" onclick="selectRandom()">Next</button>
+    <div class="clearfix form-inline">
+      <input type="text" id="question-range" class="form-control"
+        placeholder="Optional range (ex. 2-5)">
+      <button type="button" id="next-button" class="btn btn-default pull-right">
+        Next
+      </button>
+      <div id="range-error-box" class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span id="range-error-text">...</span>
+      </div>
+    </div>
   </div>
 
   <div class="col-md-6 test-column">
