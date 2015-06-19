@@ -17,6 +17,7 @@
 
 
 /* page header */
+
 .header {
     font-size: 27px;
     margin-bottom: 40px;
@@ -24,6 +25,7 @@
 
 
 /* test page */
+
 .test-column {
     margin-bottom: 30px;
 }
@@ -34,9 +36,8 @@
     min-height: 100px;
 }
 
-.col-md-6.test-column {
-    padding-left: 0px;
-    padding-right: 30px;
+#question-range {
+    margin-bottom: 10px;
 }
 
 #range-error-box {
