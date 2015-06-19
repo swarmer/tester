@@ -34,3 +34,17 @@ class Question(models.Model):
 
     def __str__(self):
         return '%s - %d. %s' % (self.test, self.index, self.name)
+
+
+class UserQuestion(models.Model):
+    user = models.ForeignKey(auth.models.User)
+    question = models.ForeignKey(Question)
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return '%s - %s - %s - %s' % (
+            self.user.username,
+            self.question.test.name,
+            self.question.name,
+            self.is_active
+        )

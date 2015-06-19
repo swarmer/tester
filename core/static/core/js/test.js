@@ -4,6 +4,8 @@
 var questions = null;
 var questionsActive = null;
 var currentQuestionIndex = null;
+var testName = null;
+var csrfToken = null;
 
 function randint(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -116,14 +118,37 @@ function toggleActive(index) {
     setActive(index, !questionsActive[index]);
 }
 
+function postQuestionStates() {
+    $.post("/miniapi/questions/save_active/", {
+        states: questionsActive,
+        test: testName
+    });
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
 
 $(document).ready(function () {
     questions = getQuestions();
     questionsActive = fillArray(questions.length, true);
+    testName = $("#test-name").text();
+    csrfToken = Cookies.get('csrftoken');
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrfToken);
+            }
+        }
+    });
 
     $("#done-button").click(function () {
         setActive(currentQuestionIndex, false);
         nextQuestion();
+        postQuestionStates();
     });
 
     $("#next-button").click(nextQuestion);
@@ -131,6 +156,7 @@ $(document).ready(function () {
     $("#reset-button").click(function () {
         for (var i = 0; i < questions.length; ++i)
             setActive(i, true);
+        postQuestionStates();
     });
 
     $(".question-link").click(function(event) {
@@ -139,5 +165,7 @@ $(document).ready(function () {
         var index = $(this).parent().index();
         toggleActive(index);
         $(this).blur();
+
+        postQuestionStates();
     });
 });

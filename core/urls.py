@@ -13,5 +13,7 @@ urlpatterns = patterns('core.views',
 
     url(r'^$', views.index),
     url(r'^explore/$', views.explore),
-    url(r'test/([\w-]+)/([\w-]+)/$', views.test),
+    url(r'^test/([\w-]+)/([\w-]+)/$', views.test),
+
+    url(r'^miniapi/questions/save_active/$', views.save_active_questions),
 )
