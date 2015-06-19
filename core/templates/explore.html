@@ -4,17 +4,21 @@
 {% block content %}
   <h1 class="text-center header">Public tests</h1>
 
-  <ul class="list-group">
-    {% for test in tests %}
-      <li class="list-group-item">
-        <a href="/test/{{ test.owner.username }}/{{ test.name }}/">
-          <strong>{{ test.owner.username }}/{{ test.name }}</strong>
-        </a>
-        <div>{{ test.description }}</div>
-        <div class="text-muted">
-          {{ test.question_set.count }} question{{ test.question_set.count|pluralize }}
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
+  {% if tests %}
+    <ul class="list-group">
+      {% for test in tests %}
+        <li class="list-group-item">
+          <a href="/test/{{ test.owner.username }}/{{ test.name }}/">
+            <strong>{{ test.owner.username }}/{{ test.name }}</strong>
+          </a>
+          <div>{{ test.description }}</div>
+          <div class="text-muted">
+            {{ test.question_set.count }} question{{ test.question_set.count|pluralize }}
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-center">No public tests yet.</p>
+  {% endif %}
 {% endblock %}
