@@ -31,7 +31,7 @@
 .test-question {
     margin-top: 15px;
     margin-bottom: 20px;
-    height: 100px;
+    min-height: 100px;
 }
 
 .col-md-6.test-column {
