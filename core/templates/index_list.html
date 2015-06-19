@@ -11,7 +11,9 @@
           <strong>{{ test.owner.username }}/{{ test.name }}</strong>
         </a>
         <div>{{ test.description }}</div>
-        <div class="text-muted">{{ test.question_set.count }} questions</div>
+        <div class="text-muted">
+          {{ test.question_set.count }} question{{ test.question_set.count|pluralize }}
+        </div>
       </li>
     {% endfor %}
   </ul>
