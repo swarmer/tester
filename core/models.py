@@ -8,7 +8,7 @@ class Test(models.Model):
     name = models.CharField(max_length=30, validators=[validators.validate_slug])
     description = models.CharField(max_length=200, blank=True)
     source = models.TextField()
-    is_public = models.BooleanField(default=False)
+    is_listed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

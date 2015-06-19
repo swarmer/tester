@@ -8,7 +8,7 @@ def index(request):
     return render(request, 'index.html')
 
 def explore(request):
-    public_tests = Test.objects.filter(is_public=True)
+    public_tests = Test.objects.filter(is_listed=True)
     return render(request, 'explore.html', {'tests': public_tests})
 
 def test(request, username, test_name):
