@@ -45,6 +45,10 @@
     display: none;
 }
 
+.question-inactive {
+    text-decoration: line-through;
+}
+
 
 .footer {
     margin-top: 50px;

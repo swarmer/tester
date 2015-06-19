@@ -37,7 +37,7 @@
       <div class="panel-body">
         <ol id="questions">
           {% for question in test.question_set.all %}
-            <li>{{ question.name }}</li>
+            <li><a class="question-link" href="#">{{ question.name }}</a></li>
           {% endfor %}
         </ol>
       </div>

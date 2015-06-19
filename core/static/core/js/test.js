@@ -1,6 +1,9 @@
 "use strict";
 
 
+var questions = null;
+var questionsActive = null;
+
 function randint(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -33,7 +36,17 @@ function getIndices() {
     return [from, to];
 }
 
-$("#next-button").click(function () {
+function getValidIndices(start, end) {
+    var validIndices = [];
+    for (var i = 0; i < questions.length; ++i) {
+        if (i >= start && i < end && questionsActive[i])
+            validIndices.push(i);
+    }
+
+    return validIndices;
+}
+
+function nextClicked() {
     var questions = getQuestions();
     var from, to;
     try {
@@ -59,8 +72,58 @@ $("#next-button").click(function () {
     }
     $("#range-error-box").hide(100);
 
-    var randomIndex = randint(from - 1, to);
+    $("#question-text").empty();
+
+    var validIndices = getValidIndices(from - 1, to);
+    if (_.isEmpty(validIndices)) {
+        $("#question-text").append(
+            $("<span/>", {class: "text-success", text: "No more questions!"})
+        );
+        return;
+    }
+
+    var randomIndex = _.sample(validIndices);
     var question = (randomIndex + 1) + ". " + questions[randomIndex];
 
     $("#question-text").text(question);
+}
+
+function fillArray(n, value) {
+    var array = new Array(n);
+    for (var i = 0; i < n; ++i)
+        array[i] = value;
+    return array;
+}
+
+function setActive(index, isActive) {
+    questionsActive[index] = isActive;
+
+    var questionText = $("#questions").children().eq(index).children("a");
+    if (isActive) {
+        questionText.removeClass("text-success");
+        questionText.removeClass("question-inactive");
+    } else {
+        questionText.addClass("text-success");
+        questionText.addClass("question-inactive");
+    }
+}
+
+function toggleActive(index) {
+    setActive(index, !questionsActive[index]);
+}
+
+
+$(document).ready(function () {
+    questions = getQuestions();
+    questionsActive = fillArray(questions.length, true);
+
+    $("#next-button").click(nextClicked);
+
+    $(".question-link").click(function(event) {
+        event.preventDefault();
+
+        var index = $(this).parent().index();
+        toggleActive(index);
+        $(this).blur();
+    });
 });
