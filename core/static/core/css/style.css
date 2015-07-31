@@ -1,5 +1,4 @@
 /* navigation bar */
-
 .navbar.navbar-inverse {
     border-radius: 0px;
 }
@@ -17,7 +16,6 @@
 
 
 /* page header */
-
 .header {
     font-size: 27px;
     margin-bottom: 40px;
@@ -25,7 +23,6 @@
 
 
 /* test page */
-
 .test-column {
     margin-bottom: 30px;
 }
@@ -50,6 +47,7 @@
 }
 
 
+/* footer */
 footer {
     text-align: center;
     margin-top: 50px;
