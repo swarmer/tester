@@ -56,6 +56,7 @@ docs/_build/
 # PyBuilder
 target/
 
+
 # Virtual environment
 venv/
 
@@ -64,3 +65,9 @@ db.sqlite3
 
 # Source zipball
 tester.zip
+
+# Built static assets
+build_static/
+
+# npm
+node_modules/

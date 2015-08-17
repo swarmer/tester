@@ -32,6 +32,14 @@
         - postgresql
         - postgresql-server-dev-9.3
         - python-psycopg2
+        - npm
+        - nodejs-legacy
+
+    - name: install required npm packages
+      npm: name={{ item }} global=yes
+      with_items:
+        - gulp
+        - bower
 
     - name: add a user
       user: name={{ app_name }} shell=/bin/bash groups=sudo append=yes
@@ -101,9 +109,9 @@
       sudo_user: postgres
       postgresql_db: name={{ app_name }}
 
-    - name: Run migrations
+    - name: Run init script
       remote_user: "{{ app_name }}"
-      shell: /home/{{ app_name }}/{{ app_name }}/venv/bin/python manage.py migrate
+      shell: /home/{{ app_name }}/{{ app_name }}/init.sh
       args:
         chdir: /home/{{ app_name }}/{{ app_name }}/
       environment: production
