@@ -21,6 +21,10 @@
     margin-bottom: 40px;
 }
 
+.jumbotron {
+    padding: 30px 10px;
+}
+
 
 /* test page */
 .test-column {
