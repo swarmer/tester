@@ -19,7 +19,7 @@ var buildDest = 'build_static/';
 
 function copyBowerPackage(name, files) {
     return gulp.src(path.join('bower_components/', name, files))
-        .pipe(gulp.dest(path.join(buildDest, path.join('dist/', name))));
+        .pipe(gulp.dest(path.join(buildDest, 'dist/', name)));
 }
 
 gulp.task('clean', function (done) {
