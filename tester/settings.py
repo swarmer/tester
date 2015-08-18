@@ -118,11 +118,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-# disable searching for static files in apps because it's done by gulp
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-)
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'build_static/'),
 )
