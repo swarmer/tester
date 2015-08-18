@@ -26,8 +26,6 @@ else:
     with open(os.path.join(BASE_DIR, '..', 'key')) as key_file:
         SECRET_KEY = key_file.read()
 
-TEMPLATE_DEBUG = DEBUG
-
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
