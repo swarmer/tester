@@ -128,7 +128,10 @@
       remote_user: "{{ app_name }}"
       file: path=/home/{{ app_name }}/run.sh mode=0775
 
-    - name: Create static directory
+    - name: Delete static directory
+      file: path=/home/{{ app_name }}/static state=absent
+
+    - name: Create clean static directory
       remote_user: "{{ app_name }}"
       file: path=/home/{{ app_name }}/static state=directory
 
