@@ -71,3 +71,6 @@ build_static/
 
 # npm
 node_modules/
+
+# bower
+bower_components/
