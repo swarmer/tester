@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 
 from allauth.account import views as allauth_views
 
@@ -11,11 +12,18 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # django-allauth
-    url(r'^accounts/signup/$', allauth_views.signup, name='account_signup'),
+    url(
+        r'^accounts/signup/$',
+        RedirectView.as_view(pattern_name='account_login'),
+        name='account_signup'
+    ),
     url(r'^accounts/login/$', allauth_views.login, name='account_login'),
     url(r'^accounts/logout/$', allauth_views.logout, name='account_logout'),
     url(r'^accounts/inactive/$', allauth_views.account_inactive,
         name='account_inactive'),
+
+    url(r'^accounts/social/', include('allauth.socialaccount.urls')),
+    url(r'^accounts/', include('allauth.socialaccount.providers.vk.urls')),
 
     # core
     url(r'^$', views.index, name='index'),

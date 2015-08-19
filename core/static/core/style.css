@@ -26,6 +26,17 @@
 }
 
 
+/* login */
+.social-button {
+    padding: 2px 12px 2px 6px;
+}
+
+.social-logo {
+    width: 28px;
+    height: 28px;
+}
+
+
 /* test page */
 .test-column {
     margin-bottom: 30px;
