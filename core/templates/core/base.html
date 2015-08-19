@@ -58,7 +58,7 @@
               {% if user.is_superuser %}
                 <li><a href="/admin/">Admin</a></li>
               {% endif %}
-              <li><a href="{% url 'account_logout' %}">Log Out</a></li>
+              <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
             {% else %}
               <li><a href="{% url 'account_login' %}">Sign In</a></li>
             {% endif %}
