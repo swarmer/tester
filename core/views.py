@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse, HttpResponseBadRequest
@@ -51,6 +51,15 @@ def test(request, username, test_name):
         'test': test,
         'questions': questions,
     })
+
+def test_new(request):
+    return render(request, 'core/test_new.html')
+
+def test_edit(request, username, test_name):
+    return render(request, 'core/test_edit.html')
+
+def test_delete(request, username, test_name):
+    return redirect('index')
 
 @require_POST
 def save_active_questions(request):

@@ -28,7 +28,11 @@ urlpatterns = [
     # core
     url(r'^$', views.index, name='index'),
     url(r'^explore/$', views.explore, name='explore'),
+
+    url(r'^test/new/$', views.test_new, name='test_new'),
     url(r'^test/([\w-]+)/([\w-]+)/$', views.test, name='test'),
+    url(r'^test/([\w-]+)/([\w-]+)/edit/$', views.test_edit, name='test_edit'),
+    url(r'^test/([\w-]+)/([\w-]+)/delete/$', views.test_delete, name='test_delete'),
 
     # AJAX
     url(r'^miniapi/questions/save_active/$', views.save_active_questions),
