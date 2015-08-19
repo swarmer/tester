@@ -11,10 +11,10 @@ from .models import Test, Question, UserQuestion
 
 def index_list(request):
     tests = Test.objects.filter(owner=request.user)
-    return render(request, 'index_list.html', {'tests': tests})
+    return render(request, 'core/index_list.html', {'tests': tests})
 
 def index_intro(request):
-    return render(request, 'index_intro.html')
+    return render(request, 'core/index_intro.html')
 
 def index(request):
     if request.user.is_authenticated():
@@ -24,7 +24,7 @@ def index(request):
 
 def explore(request):
     public_tests = Test.objects.filter(is_listed=True)
-    return render(request, 'explore.html', {'tests': public_tests})
+    return render(request, 'core/explore.html', {'tests': public_tests})
 
 @ensure_csrf_cookie
 def test(request, username, test_name):
@@ -47,7 +47,7 @@ def test(request, username, test_name):
         except exceptions.ObjectDoesNotExist:
             pass
 
-    return render(request, 'test.html', {
+    return render(request, 'core/test.html', {
         'test': test,
         'questions': questions,
     })
