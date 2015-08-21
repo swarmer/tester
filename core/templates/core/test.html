@@ -45,10 +45,12 @@
     <div class="panel panel-default">
       <div class="panel-heading questions-header">
         <strong class="questions-heading">Questions</strong>
-        <a class="btn btn-default edit-button pull-right" style="max-height: 100%;"
-            href="/test/{{ test.owner.username }}/{{ test.name }}/edit/">
-          <span class="glyphicon glyphicon-pencil"></span>
-        </a>
+        {% if request.user == test.owner %}
+          <a class="btn btn-default edit-button pull-right"
+              href="/test/{{ test.owner.username }}/{{ test.name }}/edit/">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </a>
+        {% endif %}
       </div>
 
       <div class="panel-body">
