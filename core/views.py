@@ -66,9 +66,6 @@ class TestNew(CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        self.object = form.save()
-        print(self.object)
-        print(self.object.get_absolute_url())
         return super().form_valid(form)
 
     @method_decorator(login_required)
