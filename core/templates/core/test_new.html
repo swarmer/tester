@@ -4,7 +4,7 @@
 {% block content %}
   <h1 class="text-center header">New Test</h1>
 
-  <form class="form-container" method="POST" action="{% url 'test_new' %}">
+  <form class="form-container" method="POST">
     {% csrf_token %}
 
     <div class="form-group">
