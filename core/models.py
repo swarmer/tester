@@ -15,7 +15,7 @@ class Test(models.Model):
         unique_together = ('owner', 'name')
 
     def __str__(self):
-        return '{}/{}'.format(self.owner.username, self.name)
+        return self.get_slugname()
 
     def save(self, *args, **kwargs):
         with transaction.atomic():
@@ -32,7 +32,12 @@ class Test(models.Model):
         return '/test/{}/'.format(self.get_slugname())
 
     def get_slugname(self):
-        return '{}/{}'.format(self.owner.username, self.name)
+        try:
+            username = self.owner.username
+        except auth.models.User.DoesNotExist:
+            username = '<None>'
+
+        return '{}/{}'.format(username, self.name)
 
 
 class Question(models.Model):

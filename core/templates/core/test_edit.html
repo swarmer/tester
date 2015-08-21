@@ -10,8 +10,14 @@
 
       {% if form.non_field_errors %}
         <div class="alert alert-danger error-box" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign"></span>
-            {{ form.non_field_errors }}
+          <ul class="errorlist">
+            {% for error in form.non_field_errors %}
+              <li>
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                {{ error }}
+              </li>
+            {% endfor %}
+          </ul>
         </div>
       {% endif %}
 

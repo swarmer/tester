@@ -11,6 +11,7 @@ from django.core import exceptions
 
 
 from .models import Test, Question, UserQuestion
+from .forms import TestForm
 
 
 def index_list(request):
@@ -61,12 +62,13 @@ class TestNew(CreateView):
     http_method_names = ['get', 'post', 'options']
 
     model = Test
-    fields = ['name', 'description', 'source']
+    form_class = TestForm
     template_name = 'core/test_new.html'
 
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['owner'] = self.request.user
+        return kwargs
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -77,7 +79,7 @@ class TestEdit(UpdateView):
     http_method_names = ['get', 'post', 'options']
 
     model = Test
-    fields = ['name', 'description', 'source']
+    form_class = TestForm
     template_name = 'core/test_edit.html'
 
     def get_queryset(self):
@@ -89,7 +91,6 @@ class TestEdit(UpdateView):
         username, test_name = self.args
         owner = get_object_or_404(User, username=username)
         return get_object_or_404(queryset, owner=owner, name=test_name)
-
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
