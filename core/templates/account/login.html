@@ -34,7 +34,12 @@
       {% endif %}
 
       <button class="btn btn-primary" type="submit">Sign In</button>
-      <a class="social-button btn btn-default pull-right" href="/accounts/vk/login/?process=login">
+      <a class="social-button btn btn-default pull-right"
+          {% if redirect_field_value %}
+            href="/accounts/vk/login/?process=login&next={{ redirect_field_value }}"
+          {% else %}
+            href="/accounts/vk/login/?process=login"
+          {% endif %}>
         <img class="social-logo" src="/static/core/vk.svg" alt="vk logo">
         Sign In with VK
       </a>
