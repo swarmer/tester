@@ -5,7 +5,7 @@
   <h1 class="text-center header">Public tests</h1>
 
   {% if tests %}
-    <ul class="list-group">
+    <ul class="list-group form-container">
       {% for test in tests %}
         <li class="list-group-item">
           <a href="/test/{{ test.owner.username }}/{{ test.name }}/">
