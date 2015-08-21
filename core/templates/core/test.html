@@ -43,7 +43,13 @@
 
   <div class="col-md-6 test-column">
     <div class="panel panel-default">
-      <div class="panel-heading"><strong>Questions</strong></div>
+      <div class="panel-heading questions-header">
+        <strong class="questions-heading">Questions</strong>
+        <a class="btn btn-default edit-button pull-right" style="max-height: 100%;"
+            href="/test/{{ test.owner.username }}/{{ test.name }}/edit/">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+      </div>
 
       <div class="panel-body">
         <ol id="questions">

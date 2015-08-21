@@ -90,6 +90,16 @@ textarea {
     min-height: 100px;
 }
 
+.questions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.questions-heading {
+    margin-left: 15px;
+}
+
 #question-range {
     margin-bottom: 10px;
 }

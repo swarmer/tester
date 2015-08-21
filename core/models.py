@@ -1,4 +1,5 @@
 from django.db import models
+from django.db import transaction
 from django.contrib import auth
 from django.core import validators
 
@@ -17,14 +18,15 @@ class Test(models.Model):
         return '{}/{}'.format(self.owner.username, self.name)
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+        with transaction.atomic():
+            super().save(*args, **kwargs)
 
-        for question in self.question_set.all():
-            question.delete()
+            for question in self.question_set.all():
+                question.delete()
 
-        for i, line in enumerate(self.source.splitlines()):
-            index = i + 1
-            self.question_set.create(test=self, name=line, index=index)
+            for i, line in enumerate(self.source.splitlines()):
+                index = i + 1
+                self.question_set.create(test=self, name=line, index=index)
 
     def get_absolute_url(self):
         return '/test/{}/'.format(self.get_slugname())
