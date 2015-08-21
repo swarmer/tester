@@ -24,7 +24,10 @@ class Test(models.Model):
             self.question_set.create(test=self, name=line, index=index)
 
     def get_absolute_url(self):
-        return '/test/{}/{}/'.format(self.owner.username, self.name)
+        return '/test/{}/'.format(self.get_slugname())
+
+    def get_slugname(self):
+        return '{}/{}'.format(self.owner.username, self.name)
 
 
 class Question(models.Model):

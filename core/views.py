@@ -100,11 +100,10 @@ class TestEdit(UpdateView):
 
 
 class TestDelete(DeleteView):
-    http_method_names = ['get', 'post', 'options']
+    http_method_names = ['post', 'options']
 
     model = Test
     success_url = '/'
-    template_name = 'core/test_delete.html'
 
     def get_queryset(self):
         return Test.objects.filter(owner=self.request.user)

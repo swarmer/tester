@@ -19,14 +19,17 @@
           </div>
 
           <div class="test-edit-buttons">
-            <a class="btn btn-default"
+            <a class="btn btn-default edit-button"
                 href="/test/{{ test.owner.username }}/{{ test.name }}/edit/">
               <span class="glyphicon glyphicon-pencil"></span>
             </a>
-            <a class="btn btn-danger"
-                href="/test/{{ test.owner.username }}/{{ test.name }}/delete/">
-              <span class="glyphicon glyphicon-remove"></span>
-            </a>
+            <form class="edit-button"
+                action="/test/{{ test.owner.username }}/{{ test.name }}/delete/" method="post">
+              {% csrf_token %}
+              <button class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </form>
           </div>
         </li>
       {% endfor %}
