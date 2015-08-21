@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.db import transaction
-from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core import exceptions
+
 
 from .models import Test, Question, UserQuestion
 
@@ -52,14 +56,70 @@ def test(request, username, test_name):
         'questions': questions,
     })
 
-def test_new(request):
-    return render(request, 'core/test_new.html')
 
-def test_edit(request, username, test_name):
-    return render(request, 'core/test_edit.html')
+class TestNew(CreateView):
+    http_method_names = ['get', 'post', 'options']
 
-def test_delete(request, username, test_name):
-    return redirect('index')
+    model = Test
+    fields = ['name', 'description', 'source']
+    template_name = 'core/test_new.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        self.object = form.save()
+        print(self.object)
+        print(self.object.get_absolute_url())
+        return super().form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
+class TestEdit(UpdateView):
+    http_method_names = ['get', 'post', 'options']
+
+    model = Test
+    fields = ['name', 'description', 'source']
+    template_name = 'core/test_edit.html'
+
+    def get_queryset(self):
+        return Test.objects.filter(owner=self.request.user)
+
+    def get_object(self, queryset=None):
+        queryset = queryset or self.get_queryset()
+
+        username, test_name = self.args
+        owner = get_object_or_404(User, username=username)
+        return get_object_or_404(Test, owner=owner, name=test_name)
+
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
+class TestDelete(DeleteView):
+    http_method_names = ['get', 'post', 'options']
+
+    model = Test
+    success_url = '/'
+    template_name = 'core/test_delete.html'
+
+    def get_queryset(self):
+        return Test.objects.filter(owner=self.request.user)
+
+    def get_object(self, queryset=None):
+        queryset = queryset or self.get_queryset()
+
+        username, test_name = self.args
+        owner = get_object_or_404(User, username=username)
+        return get_object_or_404(Test, owner=owner, name=test_name)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 @require_POST
 def save_active_questions(request):

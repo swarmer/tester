@@ -11,7 +11,7 @@ class Test(models.Model):
     is_listed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return '{}/{}'.format(self.owner.username, self.name)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -22,6 +22,9 @@ class Test(models.Model):
         for i, line in enumerate(self.source.splitlines()):
             index = i + 1
             self.question_set.create(test=self, name=line, index=index)
+
+    def get_absolute_url(self):
+        return '/test/{}/{}/'.format(self.owner.username, self.name)
 
 
 class Question(models.Model):

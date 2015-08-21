@@ -14,7 +14,7 @@ urlpatterns = [
     # django-allauth
     url(
         r'^accounts/signup/$',
-        RedirectView.as_view(pattern_name='account_login'),
+        RedirectView.as_view(pattern_name='account_login', permanent=False),
         name='account_signup'
     ),
     url(r'^accounts/login/$', allauth_views.login, name='account_login'),
@@ -29,10 +29,14 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^explore/$', views.explore, name='explore'),
 
-    url(r'^test/new/$', views.test_new, name='test_new'),
-    url(r'^test/([\w-]+)/([\w-]+)/$', views.test, name='test'),
-    url(r'^test/([\w-]+)/([\w-]+)/edit/$', views.test_edit, name='test_edit'),
-    url(r'^test/([\w-]+)/([\w-]+)/delete/$', views.test_delete, name='test_delete'),
+    url(r'^test/new/$', views.TestNew.as_view(),
+        name='test_new'),
+    url(r'^test/([\w-]+)/([\w-]+)/$', views.test,
+        name='test'),
+    url(r'^test/([\w-]+)/([\w-]+)/edit/$',views.TestEdit.as_view(),
+        name='test_edit'),
+    url(r'^test/([\w-]+)/([\w-]+)/delete/$', views.TestDelete.as_view(),
+        name='test_delete'),
 
     # AJAX
     url(r'^miniapi/questions/save_active/$', views.save_active_questions),
