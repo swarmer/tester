@@ -91,7 +91,7 @@ class TestEdit(UpdateView):
 
         username, test_name = self.args
         owner = get_object_or_404(User, username=username)
-        return get_object_or_404(Test, owner=owner, name=test_name)
+        return get_object_or_404(queryset, owner=owner, name=test_name)
 
 
     @method_decorator(login_required)
@@ -114,7 +114,7 @@ class TestDelete(DeleteView):
 
         username, test_name = self.args
         owner = get_object_or_404(User, username=username)
-        return get_object_or_404(Test, owner=owner, name=test_name)
+        return get_object_or_404(queryset, owner=owner, name=test_name)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
