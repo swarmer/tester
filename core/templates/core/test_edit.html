@@ -4,5 +4,43 @@
 {% block content %}
   <h1 class="text-center header">Edit Test</h1>
 
-  TODO
+  <form class="form-container" method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="name-input">Name</label>
+      <div class="input-group">
+        <div class="input-group-addon">{{ request.user.username }}/</div>
+        <input id="name-input" placeholder="Name"
+          name="name" class="form-control" type="text"
+          value="{{ form.name.value|default_if_none:"" }}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description-input">Description</label>
+      <input id="description-input" placeholder="Description"
+        name="description" class="form-control" type="text"
+        value="{{ form.description.value|default_if_none:"" }}">
+    </div>
+
+    <div class="form-group">
+      <label for="source-input">Questions</label>
+      <textarea id="source-input" placeholder="Enter your questions here (one per line)"
+          name="source" class="form-control" rows="10"
+          value="{{ form.source.value|default_if_none:"" }}"
+        >{{ form.source.value|default_if_none:"" }}</textarea>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+      <span class="glyphicon glyphicon glyphicon-pencil"></span>
+      Save Test
+    </button>
+
+    <a class="btn btn-danger pull-right"
+        href="/test/{{ object.owner.username }}/{{ object.name }}/delete/">
+      <span class="glyphicon glyphicon-remove"></span>
+      Delete
+    </a>
+  </form>
 {% endblock %}
