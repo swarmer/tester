@@ -10,6 +10,9 @@ class Test(models.Model):
     source = models.TextField()
     is_listed = models.BooleanField(default=False)
 
+    class Meta:
+        unique_together = ('owner', 'name')
+
     def __str__(self):
         return '{}/{}'.format(self.owner.username, self.name)
 
