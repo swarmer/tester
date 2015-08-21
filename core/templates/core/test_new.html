@@ -7,6 +7,13 @@
   <form class="form-container" method="POST">
     {% csrf_token %}
 
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger error-box" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign"></span>
+          {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
     <div class="form-group">
       <label for="name-input">Name</label>
       <div class="input-group">
@@ -15,6 +22,10 @@
           name="name" class="form-control" type="text"
           value="{{ form.name.value|default_if_none:"" }}">
       </div>
+
+      {% if form.name.errors %}
+        {{ form.name.errors }}
+      {% endif %}
     </div>
 
     <div class="form-group">
@@ -22,13 +33,21 @@
       <input id="description-input" placeholder="Description"
         name="description" class="form-control" type="text"
         value="{{ form.description.value|default_if_none:"" }}">
+
+      {% if form.description.errors %}
+        {{ form.description.errors }}
+      {% endif %}
     </div>
 
     <div class="form-group">
       <label for="source-input">Questions</label>
       <textarea id="source-input" placeholder="Enter your questions here (one per line)"
-        name="source" class="form-control" rows="10"
-        value="{{ form.source.value|default_if_none:"" }}"></textarea>
+          name="source" class="form-control"
+          rows="10">{{ form.source.value|default_if_none:"" }}</textarea>
+
+      {% if form.source.errors %}
+        {{ form.source.errors }}
+      {% endif %}
     </div>
 
     <div class="text-center">
