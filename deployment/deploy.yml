@@ -143,7 +143,6 @@
       shell: /home/{{ app_name }}/{{ app_name }}/venv/bin/python manage.py collectstatic --noinput
       args:
         chdir: /home/{{ app_name }}/{{ app_name }}/
-      environment: production
 
     - name: start the app
       supervisorctl: name={{ app_name }} state=started
