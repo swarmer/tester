@@ -6,8 +6,8 @@ from django.core import validators
 
 class Test(models.Model):
     owner = models.ForeignKey(auth.models.User)
-    name = models.CharField(max_length=30, validators=[validators.validate_slug])
-    description = models.CharField(max_length=200, blank=True)
+    name = models.CharField(max_length=100, validators=[validators.validate_slug])
+    description = models.CharField(max_length=1000, blank=True)
     source = models.TextField()
     is_listed = models.BooleanField(default=False)
 
@@ -42,7 +42,7 @@ class Test(models.Model):
 
 class Question(models.Model):
     test = models.ForeignKey(Test)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=1000)
     index = models.IntegerField()
 
     class Meta:
