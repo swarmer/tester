@@ -140,7 +140,7 @@
 
     - name: Collect static files to be served by nginx
       remote_user: "{{ app_name }}"
-      shell: . /home/{{ app_name }}/env.py && \
+      shell: . /home/{{ app_name }}/env.sh && \
         /home/{{ app_name }}/{{ app_name }}/venv/bin/python manage.py collectstatic --noinput
       args:
         chdir: /home/{{ app_name }}/{{ app_name }}/
