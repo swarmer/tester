@@ -29,7 +29,7 @@ else:
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['tester.%s' % socket.gethostname()]
+    ALLOWED_HOSTS = ['tester.swarmer.me']
 
 INTERNAL_IPS = ('127.0.0.1',)
 
