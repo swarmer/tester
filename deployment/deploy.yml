@@ -3,7 +3,7 @@
 
   vars:
     app_name: tester
-    proxy_port: 8004
+    proxy_port: 8001
     production:
       DEBUG: 0
       MEDIA_ROOT: /home/{{ app_name }}/media/
@@ -30,7 +30,7 @@
         - dtrx
         - htop
         - postgresql
-        - postgresql-server-dev-9.3
+        - postgresql-server-dev-9.5
         - python-psycopg2
         - npm
         - nodejs-legacy
