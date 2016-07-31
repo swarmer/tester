@@ -114,7 +114,6 @@
       shell: /home/{{ app_name }}/{{ app_name }}/init.sh
       args:
         chdir: /home/{{ app_name }}/{{ app_name }}/
-      environment: production
 
     - name: write the env script
       remote_user: "{{ app_name }}"
